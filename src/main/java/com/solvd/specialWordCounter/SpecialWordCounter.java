@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 public class SpecialWordCounter {
 
@@ -31,16 +32,15 @@ public class SpecialWordCounter {
 
         contents = contents.replaceAll("[^a-zA-Z0-9]", " ");
 
-        String[] words = StringUtils.split(contents);
-        int specialWordCounter = 0;
-        for(String word : words) {
-            if(isSpecial(word)) {
-                ++specialWordCounter;
-            }
-        }
+        ISpecial special = (String word) -> {
+            return StringUtils.isAlpha(word) && Character.isUpperCase(word.charAt(0));
+        };
 
-        if(!output.exists()) {
-            try  {
+        String[] words = StringUtils.split(contents);
+        int specialWordCounter = (int) Arrays.stream(words).filter(special::isSpecial).count();
+
+        if (!output.exists()) {
+            try {
                 output.createNewFile();
             } catch (IOException | SecurityException e) {
                 LOG.error(e);
@@ -58,9 +58,5 @@ public class SpecialWordCounter {
         }
 
         PRINT.info("Count has successfully wrote to the \"output.txt\"");
-    }
-
-    private static boolean isSpecial(String word) {
-        return StringUtils.isAlpha(word) && Character.isUpperCase(word.charAt(0));
     }
 }

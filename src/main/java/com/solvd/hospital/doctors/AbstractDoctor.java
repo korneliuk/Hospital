@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Objects;
 
-public abstract class AbstractDoctor implements ISpecialized, IChildSpecialist, IReportable {
+public abstract class AbstractDoctor implements IChildSpecialist, IReportable {
 
     protected Logger LOGGER = LogManager.getLogger(AbstractDoctor.class);
 
@@ -36,7 +36,13 @@ public abstract class AbstractDoctor implements ISpecialized, IChildSpecialist, 
         return name;
     }
 
-    public abstract Specialization getSpecialization();
+    private final ISpecialized specialized = () -> {
+        return Specialization.GENERAL_PRACTITIONER;
+    };
+
+    public Specialization getSpecialization() {
+        return specialized.getSpecialization();
+    }
 
     @Override
     public String toString() {

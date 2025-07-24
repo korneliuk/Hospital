@@ -66,20 +66,14 @@ public class SpecialistsDB {
     }
 
     public static void displayAvailableDoctors() {
-        for(RatedDoctor<? extends AbstractDoctor> doctor : availableDoctors) {
-            PRINT.info("{}\n", doctor);
-        }
+        availableDoctors.stream().forEach((doctor) -> PRINT.info("{}\n", doctor));
     }
 
     public static void displayAvailableDiagnosticSpecialists() {
-        for(RatedDoctor<? extends AbstractDiagnosticSpecialist> doctor : availableDiagnosticSpecialists) {
-            PRINT.info("{}\n", doctor);
-        }
+        availableDiagnosticSpecialists.stream().forEach((doctor) -> PRINT.info("{}\n", doctor));
     }
 
     public static void displayAvailableSurgeons() {
-        for(RatedDoctor<? extends AbstractDoctor> doctor : availableSurgeons) {
-            PRINT.info("{}\n", doctor);
-        }
+        availableSurgeons.stream().forEach((doctor) -> PRINT.info("{}\n", doctor));
     }
 }

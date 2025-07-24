@@ -6,7 +6,7 @@ import java.util.Iterator;
  * Class that implements single linked-list logic and can store different data types.
  * It consists of nodes. Each node knows memory placement of the next node.
  * For access to the first node, class has reference called head.
- *
+ * <p>
  * For successful access to the elements, you can use method at(int index).
  * For successful iteration through the array, you can use for, for-each loops
  * or combination of implemented input iterator and while loop.
@@ -35,9 +35,13 @@ public class ForwardList<T> implements Iterable<T> {
         return size;
     }
 
+    private final INullable nullable = (node) -> {
+        return node == null;
+    };
+
     public void pushBack(T value) {
         Node<T> newNode = new Node<>(value);
-        if (head == null) {
+        if (nullable.isNull(head)) {
             head = newNode;
         } else {
             Node<T> current = head;
@@ -58,14 +62,14 @@ public class ForwardList<T> implements Iterable<T> {
     }
 
     public void popFront() {
-        if (head != null) {
+        if (!nullable.isNull(head)) {
             head = head.getNext();
             --size;
         }
     }
 
     public void popBack() {
-        if (head != null) {
+        if (!nullable.isNull(head)) {
             Node<T> current = head;
 
             while (current.getNext().getNext() != null)
@@ -195,7 +199,7 @@ public class ForwardList<T> implements Iterable<T> {
             current = current.getNext();
         }
 
-        if (head != null)
+        if (!nullable.isNull(head))
             result.append(current.getValue());
 
         result.append("]");
