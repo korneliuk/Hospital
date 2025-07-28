@@ -1,5 +1,7 @@
 package com.solvd.forwardList;
 
+import com.solvd.forwardList.annotations.Benchmark;
+
 import java.util.Iterator;
 
 /**
@@ -21,11 +23,13 @@ public class ForwardList<T> implements Iterable<T> {
         head = null;
     }
 
+    @Benchmark
     public ForwardList(ForwardList<T> other) {
         for (T value : other)
             pushBack(value);
     }
 
+    @Benchmark
     public ForwardList(T[] array) {
         for (T value : array)
             pushBack(value);
@@ -39,6 +43,7 @@ public class ForwardList<T> implements Iterable<T> {
         return node == null;
     };
 
+    @Benchmark
     public void pushBack(T value) {
         Node<T> newNode = new Node<>(value);
         if (nullable.isNull(head)) {
@@ -54,6 +59,7 @@ public class ForwardList<T> implements Iterable<T> {
         ++size;
     }
 
+    @Benchmark
     public void pushFront(T value) {
         Node<T> newNode = new Node<>(value);
         newNode.setNext(head);
@@ -61,6 +67,7 @@ public class ForwardList<T> implements Iterable<T> {
         ++size;
     }
 
+    @Benchmark
     public void popFront() {
         if (!nullable.isNull(head)) {
             head = head.getNext();
@@ -68,6 +75,7 @@ public class ForwardList<T> implements Iterable<T> {
         }
     }
 
+    @Benchmark
     public void popBack() {
         if (!nullable.isNull(head)) {
             Node<T> current = head;
@@ -85,6 +93,7 @@ public class ForwardList<T> implements Iterable<T> {
         size = 0;
     }
 
+    @Benchmark
     public void insert(int index, T value) throws IndexOutOfBoundsException {
         if (index < 0 || index > size)
             throw new IndexOutOfBoundsException("Index out of bounds.");
@@ -108,6 +117,7 @@ public class ForwardList<T> implements Iterable<T> {
         }
     }
 
+    @Benchmark
     public void set(int index, T value) throws IndexOutOfBoundsException {
         if (index < 0 || index > size)
             throw new IndexOutOfBoundsException("Index out of bounds.");
@@ -120,6 +130,7 @@ public class ForwardList<T> implements Iterable<T> {
         current.setValue(value);
     }
 
+    @Benchmark
     public T at(int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= size)
             throw new IndexOutOfBoundsException("Index out of bounds.");
@@ -132,6 +143,7 @@ public class ForwardList<T> implements Iterable<T> {
         return current.getValue();
     }
 
+    @Benchmark
     public void removeAt(int index) throws IndexOutOfBoundsException {
         if (index < 0 || index > size)
             throw new IndexOutOfBoundsException("Index out of bounds.");
@@ -170,6 +182,7 @@ public class ForwardList<T> implements Iterable<T> {
         };
     }
 
+    @Benchmark
     public boolean equals(ForwardList<T> other) {
         if (this.size != other.size)
             return false;
@@ -189,6 +202,7 @@ public class ForwardList<T> implements Iterable<T> {
         return size == 0;
     }
 
+    @Benchmark
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder("[");
