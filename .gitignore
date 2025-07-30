@@ -34,3 +34,6 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+### Output .txt files ###
+!**/src/main/java/com/solvd/specialWordCounter/output1.txt
